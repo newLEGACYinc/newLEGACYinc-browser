@@ -6,30 +6,38 @@ var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?c
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 var notified = false;
 
+/**
+ * This function is called every time an alarm goes off
+ * @param {Object} alarm The alarm that went off
+ */
 function twitchListener(alarm) {
 	console.log("Alarm run");
-	if (alarm.name === "twitch_alarm") {
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			// if request is ready
-			if (xhr.readyState == 4) {
-				var json = JSON.parse(xhr.responseText);
-				console.log(json);
-				if (json.stream != null) {
-					if (!notified) {
-						serveTwitchNotification(json.stream);
-						notified = true;
-					}
-				} else {
-					notified = false;
+	if (alarm.name !== "twitch")
+		return;
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		// if request is ready
+		if (xhr.readyState == 4) {
+			var json = JSON.parse(xhr.responseText);
+			console.log(json);
+			if (json.stream != null) {
+				if (!notified) {
+					serveTwitchNotification(json.stream);
+					notified = true;
 				}
-			};
+			} else {
+				notified = false;
+			}
 		};
-		xhr.open("GET", requestUrl, true);
-		xhr.send();
-	}
+	};
+	xhr.open("GET", requestUrl, true);
+	xhr.send();
 };
 
+/**
+ * Displays the stream online Twitch.tv notification
+ * @param {Object} stream
+ */
 function serveTwitchNotification(stream) {
 	var opt = {
 		type : "basic",
