@@ -1,5 +1,5 @@
-// var TWITCH_USERNAME = "newLEGACYinc";
-var TWITCH_USERNAME = "TSM_TheOddOne";
+var TWITCH_USERNAME = "newLEGACYinc";
+//var TWITCH_USERNAME = "TSM_TheOddOne";
 var NOTIFICATION_ID = 'twitch';
 
 var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
@@ -41,7 +41,7 @@ function serveNotification(stream) {
 		title : "newLEGACYinc",
 		message : "Live on Twitch.tv!",
 		contextMessage : "Playing: " + stream.game,
-		iconUrl : "img/notification.png",
+		iconUrl : "img/twitch_notification.png",
 	};
 
 	chrome.notifications.create(NOTIFICATION_ID, opt, function(id) {
