@@ -13,5 +13,5 @@
 	"background": {
 		"page": "background.html"
 	},
-	"permissions": ["notifications", "background", "https://api.twitch.tv/", "alarms"]
+	"permissions": ["alarms", "background", "notifications", "https://api.twitch.tv/"]
 }

@@ -6,12 +6,7 @@ var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?c
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 var notified = false;
 
-chrome.alarms.create("twitch_alarm", {
-	when : Date.now(),
-	periodInMinutes : 1
-});
-
-chrome.alarms.onAlarm.addListener(function(alarm) {
+function twitchListener(alarm) {
 	console.log("Alarm run");
 	if (alarm.name === "twitch_alarm") {
 		var xhr = new XMLHttpRequest();
@@ -22,7 +17,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 				console.log(json);
 				if (json.stream != null) {
 					if (!notified) {
-						serveNotification(json.stream);
+						serveTwitchNotification(json.stream);
 						notified = true;
 					}
 				} else {
@@ -33,9 +28,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 		xhr.open("GET", requestUrl, true);
 		xhr.send();
 	}
-});
+};
 
-function serveNotification(stream) {
+function serveTwitchNotification(stream) {
 	var opt = {
 		type : "basic",
 		title : "newLEGACYinc",
