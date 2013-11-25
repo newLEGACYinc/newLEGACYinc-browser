@@ -1,28 +1,45 @@
-var TWITCH_USERNAME = "newLEGACYinc";
+// var TWITCH_USERNAME = "newLEGACYinc";
+var TWITCH_USERNAME = "TSM_TheOddOne";
 var NOTIFICATION_ID = 'twitch';
 
 var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
+var notified = false;
 
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-	// if request is ready
-	if (xhr.readyState == 4) {
-		var json = JSON.parse(xhr.responseText);
-		if (json.stream != null) {
-			serveNotification(json.stream);
-		}
-	};
-};
-xhr.open("GET", requestUrl, true);
-xhr.send();
+chrome.alarms.create("twitch_alarm", {
+	periodInMinutes : 1
+});
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+	console.log("Alarm run");
+	if (alarm.name === "twitch_alarm") {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			// if request is ready
+			if (xhr.readyState == 4) {
+				var json = JSON.parse(xhr.responseText);
+				console.log(json);
+				if (json.stream != null) {
+					if (!notified) {
+						serveNotification(json.stream);
+						notified = true;
+					}
+				} else {
+					notified = false;
+				}
+			};
+		};
+		xhr.open("GET", requestUrl, true);
+		xhr.send();
+	}
+});
 
 function serveNotification(stream) {
 	var opt = {
 		type : "basic",
 		title : "newLEGACYinc",
-		message : "Stream online!",
-		contextMessage : "This is more message",
+		message : "Live on Twitch.tv!",
+		contextMessage : "Playing: " + stream.game,
 		iconUrl : "img/notification.png",
 	};
 
