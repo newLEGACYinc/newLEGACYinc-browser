@@ -6,5 +6,5 @@
 	"background": {
 		"page": "background.html"
 	},
-	"permissions": ["notifications", "background"]
+	"permissions": ["notifications", "background", "https://api.twitch.tv/"]
 }
