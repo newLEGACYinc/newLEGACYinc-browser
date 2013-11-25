@@ -7,6 +7,7 @@ var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 var notified = false;
 
 chrome.alarms.create("twitch_alarm", {
+	when : Date.now(),
 	periodInMinutes : 1
 });
 
@@ -44,6 +45,16 @@ function serveNotification(stream) {
 	};
 
 	chrome.notifications.create(NOTIFICATION_ID, opt, function(id) {
-		console.log("Successfully created " + NOTIFICATION_ID);
+		console.log("Successfully created " + NOTIFICATION_ID + " notification");
+	});
+
+	chrome.notifications.onClicked.addListener(function(id) {
+		if (id == NOTIFICATION_ID) {
+			chrome.notifications.clear(NOTIFICATION_ID, function() {
+				chrome.tabs.create({
+					'url' : streamUrl
+				});
+			});
+		}
 	});
 }
