@@ -6,6 +6,7 @@ var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
+	// if request is ready
 	if (xhr.readyState == 4) {
 		var json = JSON.parse(xhr.responseText);
 		if (json.stream != null) {
@@ -22,10 +23,10 @@ function serveNotification(stream) {
 		title : "newLEGACYinc",
 		message : "Stream online!",
 		contextMessage : "This is more message",
-		iconUrl : "imgs/notification.png",
+		iconUrl : "img/notification.png",
 	};
 
 	chrome.notifications.create(NOTIFICATION_ID, opt, function(id) {
-		console.log("Successfully created id1");
+		console.log("Successfully created " + NOTIFICATION_ID);
 	});
 }
