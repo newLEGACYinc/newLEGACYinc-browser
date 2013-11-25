@@ -4,8 +4,11 @@
 	"name": "newLEGACYinc",
 	"description": "Official Chrome extension of newLEGACYinc!",
 	"version": "0.1.0",
+	"author": "scowalt",
 
-
+	"icons": {
+		"96": "img/newLEGACYinc.png"
+	},
 
 	"background": {
 		"page": "background.html"
