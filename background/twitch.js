@@ -4,6 +4,11 @@ var NOTIFICATION_ID = 'twitch';
 
 var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
+
+/*
+ * False if user has not been notified that newLEGACYinc is online.
+ * This is stored as a local variable, so its status will not persist between browser sessions.
+ */
 var notified = false;
 
 /**
