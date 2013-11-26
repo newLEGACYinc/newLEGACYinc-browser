@@ -2,7 +2,7 @@ var TWITCH_USERNAME = "newLEGACYinc";
 //var TWITCH_USERNAME = "TSM_TheOddOne";
 var NOTIFICATION_ID = 'twitch';
 
-var requestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
+var twitchRequestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 
 /*
@@ -23,9 +23,11 @@ function twitchListener(alarm) {
 	xhr.onreadystatechange = function() {
 		// if request is ready
 		if (xhr.readyState == 4) {
+			console.log("twitch request response");
 			var json = JSON.parse(xhr.responseText);
 			console.log(json);
 			if (json.stream != null) {
+				console.log("Stream is online");
 				if (!notified) {
 					serveTwitchNotification(json.stream);
 					notified = true;
@@ -35,7 +37,7 @@ function twitchListener(alarm) {
 			}
 		};
 	};
-	xhr.open("GET", requestUrl, true);
+	xhr.open("GET", twitchRequestUrl, true);
 	xhr.send();
 };
 
@@ -44,6 +46,7 @@ function twitchListener(alarm) {
  * @param {Object} stream
  */
 function serveTwitchNotification(stream) {
+	console.log("Serving twitch notification");
 	var opt = {
 		type : "basic",
 		title : "newLEGACYinc",

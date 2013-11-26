@@ -1,5 +1,5 @@
 var YOUTUBE_USERNAME = "newLEGACYinc";
-var requestUrl = "http://gdata.youtube.com/feeds/api/users/" + YOUTUBE_USERNAME + "/uploads?alt=json";
+var youTubeRequestUrl = "http://gdata.youtube.com/feeds/api/users/" + YOUTUBE_USERNAME + "/uploads?alt=json";
 
 function youtubeListener(alarm){
 	if (alarm.name !== "youtube")
@@ -12,6 +12,6 @@ function youtubeListener(alarm){
 			
 		};
 	};
-	xhr.open("GET", requestUrl, true);
+	xhr.open("GET", youTubeRequestUrl, true);
 	xhr.send();
 }
