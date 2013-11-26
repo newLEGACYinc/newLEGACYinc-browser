@@ -1,6 +1,6 @@
 var TWITCH_USERNAME = "newLEGACYinc";
 //var TWITCH_USERNAME = "TSM_TheOddOne";
-var NOTIFICATION_ID = 'twitch';
+var TWITCH_NOTIFICATION_ID = 'twitch';
 
 var twitchRequestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
 var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
@@ -27,13 +27,15 @@ function twitchListener(alarm) {
 			var json = JSON.parse(xhr.responseText);
 			console.log(json);
 			if (json.stream != null) {
-				console.log("Stream is online");
+				// stream is online
 				if (!notified) {
 					serveTwitchNotification(json.stream);
 					notified = true;
 				}
 			} else {
+				// stream is not online
 				notified = false;
+				chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function(){});
 			}
 		};
 	};
@@ -55,13 +57,13 @@ function serveTwitchNotification(stream) {
 		iconUrl : "img/twitch_notification.png",
 	};
 
-	chrome.notifications.create(NOTIFICATION_ID, opt, function(id) {
-		console.log("Successfully created " + NOTIFICATION_ID + " notification");
+	chrome.notifications.create(TWITCH_NOTIFICATION_ID, opt, function(id) {
+		console.log("Successfully created " + TWITCH_NOTIFICATION_ID + " notification");
 	});
 
 	chrome.notifications.onClicked.addListener(function(id) {
-		if (id == NOTIFICATION_ID) {
-			chrome.notifications.clear(NOTIFICATION_ID, function() {
+		if (id == TWITCH_NOTIFICATION_ID) {
+			chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {
 				chrome.tabs.create({
 					'url' : streamUrl
 				});
