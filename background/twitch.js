@@ -16,16 +16,16 @@ var notified = false;
  * @param {Object} alarm The alarm that went off
  */
 function twitchListener(alarm) {
-	console.log("Alarm run");
+	// console.log("Alarm run");
 	if (alarm.name !== "twitch")
 		return;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		// if request is ready
 		if (xhr.readyState == 4) {
-			console.log("twitch request response");
+			// console.log("twitch request response");
 			var json = JSON.parse(xhr.responseText);
-			console.log(json);
+			// console.log(json);
 			if (json.stream != null) {
 				// stream is online
 				if (!notified) {
@@ -35,7 +35,8 @@ function twitchListener(alarm) {
 			} else {
 				// stream is not online
 				notified = false;
-				chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function(){});
+				chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {
+				});
 			}
 		};
 	};
@@ -58,7 +59,7 @@ function serveTwitchNotification(stream) {
 	};
 
 	chrome.notifications.create(TWITCH_NOTIFICATION_ID, opt, function(id) {
-		console.log("Successfully created " + TWITCH_NOTIFICATION_ID + " notification");
+		// console.log("Successfully created " + TWITCH_NOTIFICATION_ID + " notification");
 	});
 
 	chrome.notifications.onClicked.addListener(function(id) {
