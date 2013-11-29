@@ -12,12 +12,12 @@ function youtubeListener(alarm) {
 			var feed = json.feed;
 			var entries = feed.entry;
 			chrome.storage.sync.get('youtube_last_notified', function(data) {
-				// TODO set lastNotified using chrome.storage
-				var lastNotified = moment();
-				console.log(lastNotified);
+				var lastNotified = data.youtube_last_notified;
+				if (!lastNotified)
+					return;
 				for (var i in entries) {
 					var entry = entries[i];
-					var published = moment(entry.published.$t);
+					var published = moment(entry.published.$t).unix();
 					if (lastNotified > published)// old video
 						break;
 					// entry is a new video
