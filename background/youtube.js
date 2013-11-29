@@ -6,16 +6,22 @@ function youtubeListener(alarm) {
 		return;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
-		// if request is ready
+		// if YouTube request is ready
 		if (xhr.readyState == 4) {
 			var json = JSON.parse(xhr.responseText);
 			var feed = json.feed;
 			var entries = feed.entry;
-			chrome.storage.sync.get('youtube_last_notified', function(data){
-				var lastNotified = data['youtube_last_notified'];
-				for (var i in entries){
+			chrome.storage.sync.get('youtube_last_notified', function(data) {
+				// TODO set lastNotified using chrome.storage
+				var lastNotified = moment();
+				console.log(lastNotified);
+				for (var i in entries) {
 					var entry = entries[i];
-					var published = entry.published.$t;
+					var published = moment(entry.published.$t);
+					if (lastNotified > published)// old video
+						break;
+					// entry is a new video
+					console.log("entry is a new video!");
 				}
 			});
 		};
