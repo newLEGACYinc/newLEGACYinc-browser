@@ -6,4 +6,6 @@
 
 ###Libraries
 
+- [Bootstrap](http://getbootstrap.com/) - pretty options page
+- [jQuery](http://jquery.com/) - pretty options page
 - [Moment.js](http://momentjs.com/) - for parsing dates from APIs
