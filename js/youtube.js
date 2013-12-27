@@ -16,7 +16,6 @@ function youtubeListener(alarm) {
 			var entries = feed.entry;
 			chrome.storage.sync.get('youtube_last_notified', function(data) {
 				var lastNotified = data.youtube_last_notified;
-				lastNotified = 0;
 				console.log("lastNotified = " + lastNotified);
 				var newVideos = [];
 
