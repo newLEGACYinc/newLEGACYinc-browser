@@ -1,6 +1,4 @@
-/**
- * This is called when the app or chrome is installed / updated
- */
+// This is called when the app or chrome is installed / updated
 chrome.runtime.onInstalled.addListener(function(details) {
 	if (details.reason == 'installed')
 		chrome.storage.sync.set({

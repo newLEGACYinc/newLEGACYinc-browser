@@ -1,17 +1,27 @@
 {
 	"manifest_version": 2,
 
+	// app info
 	"name": "newLEGACYinc",
 	"description": "Official Chrome extension of newLEGACYinc!",
 	"version": "0.1.0",
 	"author": "scowalt",
 
+	// app icon
 	"icons": {
 		"96": "img/newLEGACYinc.png"
 	},
 
+	// need this because of bug 134315
+	"web_accessible_resources" : [
+		"img/youtube_notification.png"
+	],
+
+	// background process(es)
 	"background": {
 		"page": "background.html"
 	},
+
+	// permissions (including external APIs)
 	"permissions": ["alarms", "background", "notifications", "storage", "https://api.twitch.tv/", "http://gdata.youtube.com/"]
 }

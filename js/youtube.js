@@ -5,7 +5,7 @@ function youtubeListener(alarm) {
 	if (alarm.name !== "youtube")
 		return;
 	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
+	xhr.onreadystatechange = function onReadyStateChange() {
 		// if YouTube request is ready
 		if (xhr.readyState == 4) {
 			var json = JSON.parse(xhr.responseText);
@@ -13,16 +13,22 @@ function youtubeListener(alarm) {
 			var entries = feed.entry;
 			chrome.storage.sync.get('youtube_last_notified', function(data) {
 				var lastNotified = data.youtube_last_notified;
+				var newVideos = [];
 				if (!lastNotified)
 					return;
 				for (var i in entries) {
 					var entry = entries[i];
 					var published = moment(entry.published.$t).unix();
-					if (lastNotified > published)// old video
+					if (lastNotified > published) // old video
 						break;
 					// entry is a new video
 					console.log("entry is a new video!");
+					newVideos.append(entry);
 				}
+
+				chrome.storage.sync.set({
+					'youtube_last_notified': moment().unix()
+				});
 			});
 		};
 	};
