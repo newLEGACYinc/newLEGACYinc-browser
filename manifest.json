@@ -22,6 +22,9 @@
 		"page": "background.html"
 	},
 
+	// options page
+	"options_page": "options.html",
+
 	// permissions (including external APIs)
 	"permissions": ["alarms", "background", "notifications", "storage", "https://api.twitch.tv/", "http://gdata.youtube.com/"]
 }
