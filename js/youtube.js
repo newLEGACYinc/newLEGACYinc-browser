@@ -1,8 +1,9 @@
-var YOUTUBE_USERNAME = "newLEGACYinc";
-var youTubeRequestUrl = "http://gdata.youtube.com/feeds/api/users/" + YOUTUBE_USERNAME + "/uploads?alt=json";
+var YOUTUBE_USERNAME = 'newLEGACYinc';
+var YOUTUBE_NOTIFICATION_ID = 'YouTube';
+var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_USERNAME + '/uploads?alt=json';
 
 function youtubeListener(alarm) {
-	if (alarm.name !== "youtube")
+	if (alarm.name !== 'youtube')
 		return;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function onReadyStateChange() {
@@ -22,16 +23,39 @@ function youtubeListener(alarm) {
 					if (lastNotified > published) // old video
 						break;
 					// entry is a new video
-					console.log("entry is a new video!");
+					console.log('entry is a new video!');
 					newVideos.append(entry);
 				}
 
+				// set last notified variable
 				chrome.storage.sync.set({
 					'youtube_last_notified': moment().unix()
 				});
+
+				if (newVideos.length > 0) {
+					// set message string
+					var messageString = 'New video';
+					var items = [];
+					for (var i in newVideos) {
+						var video = newVideos[i];
+						items.append({
+							'title': video.title.$t,
+							'message': video.content.$t
+						});
+					}
+					if (newVideos.length > 1) titleString += 's';
+					var notificationOptions = {
+						type: 'list',
+						title: 'newLEGACYinc',
+						message: messageString,
+						iconUrl: 'img/youtube_notification.png',
+						items: items
+					}
+					chrome.notifications.create(YOUTUBE_NOTIFICATION_ID, notificationOptions);
+				}
 			});
 		};
 	};
-	xhr.open("GET", youTubeRequestUrl, true);
+	xhr.open('GET', youTubeRequestUrl, true);
 	xhr.send();
 }
