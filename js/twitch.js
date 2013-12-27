@@ -16,16 +16,13 @@ var notified = false;
  * @param {Object} alarm The alarm that went off
  */
 function twitchListener(alarm) {
-	// console.log("Alarm run");
 	if (alarm.name !== "twitch")
 		return;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		// if request is ready
 		if (xhr.readyState == 4) {
-			// console.log("twitch request response");
 			var json = JSON.parse(xhr.responseText);
-			// console.log(json);
 			if (json.stream != null) {
 				// stream is online
 				if (!notified) {

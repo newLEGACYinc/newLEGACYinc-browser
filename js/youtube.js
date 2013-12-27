@@ -5,6 +5,7 @@ var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_US
 function youtubeListener(alarm) {
 	if (alarm.name !== 'youtube')
 		return;
+	console.log('Running YouTube alarm');
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function onReadyStateChange() {
 		// if YouTube request is ready
@@ -14,19 +15,19 @@ function youtubeListener(alarm) {
 			var entries = feed.entry;
 			chrome.storage.sync.get('youtube_last_notified', function(data) {
 				var lastNotified = data.youtube_last_notified;
+				console.log("lastNotified = " + lastNotified);
 				var newVideos = [];
-				if (!lastNotified)
-					return;
-				for (var i in entries) {
-					var entry = entries[i];
-					var published = moment(entry.published.$t).unix();
-					if (lastNotified > published) // old video
-						break;
-					// entry is a new video
-					console.log('entry is a new video!');
-					newVideos.append(entry);
+				if (lastNotified) {
+					for (var i in entries) {
+						var entry = entries[i];
+						var published = moment(entry.published.$t).unix();
+						if (lastNotified > published) // old video
+							break;
+						// entry is a new video
+						console.log('entry is a new video!');
+						newVideos.append(entry);
+					}
 				}
-
 				// set last notified variable
 				chrome.storage.sync.set({
 					'youtube_last_notified': moment().unix()
