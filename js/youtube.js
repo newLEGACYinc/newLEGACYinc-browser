@@ -1,5 +1,6 @@
 var YOUTUBE_USERNAME = 'newLEGACYinc';
 var YOUTUBE_NOTIFICATION_ID = 'YouTube';
+var YOUTUBE_URL = 'http://youtube.com/user/newLEGACYinc/videos';
 var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_USERNAME + '/uploads?alt=json';
 
 function youtubeListener(alarm) {
@@ -15,19 +16,23 @@ function youtubeListener(alarm) {
 			var entries = feed.entry;
 			chrome.storage.sync.get('youtube_last_notified', function(data) {
 				var lastNotified = data.youtube_last_notified;
+				lastNotified = 0;
 				console.log("lastNotified = " + lastNotified);
 				var newVideos = [];
-				if (lastNotified) {
+
+				if (lastNotified !== undefined) {
 					for (var i in entries) {
 						var entry = entries[i];
 						var published = moment(entry.published.$t).unix();
+						console.log('published = ' + published);
 						if (lastNotified > published) // old video
 							break;
 						// entry is a new video
 						console.log('entry is a new video!');
-						newVideos.append(entry);
+						newVideos.push(entry);
 					}
 				}
+
 				// set last notified variable
 				chrome.storage.sync.set({
 					'youtube_last_notified': moment().unix()
@@ -39,12 +44,11 @@ function youtubeListener(alarm) {
 					var items = [];
 					for (var i in newVideos) {
 						var video = newVideos[i];
-						items.append({
+						items.push({
 							'title': video.title.$t,
 							'message': video.content.$t
 						});
 					}
-					if (newVideos.length > 1) titleString += 's';
 					var notificationOptions = {
 						type: 'list',
 						title: 'newLEGACYinc',
@@ -52,7 +56,19 @@ function youtubeListener(alarm) {
 						iconUrl: 'img/youtube_notification.png',
 						items: items
 					}
-					chrome.notifications.create(YOUTUBE_NOTIFICATION_ID, notificationOptions);
+					chrome.notifications.create(YOUTUBE_NOTIFICATION_ID, notificationOptions, function onCreate() {
+						console.log('YouTube notification created');
+					});
+
+					chrome.notifications.onClicked.addListener(function onClicked(id) {
+						if (id == YOUTUBE_NOTIFICATION_ID) {
+							chrome.notifications.clear(YOUTUBE_NOTIFICATION_ID, function() {
+								chrome.tabs.create({
+									'url': YOUTUBE_URL
+								});
+							});
+						}
+					});
 				}
 			});
 		};

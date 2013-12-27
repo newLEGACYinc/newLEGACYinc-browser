@@ -56,7 +56,7 @@ function serveTwitchNotification(stream) {
 	};
 
 	chrome.notifications.create(TWITCH_NOTIFICATION_ID, opt, function(id) {
-		// console.log("Successfully created " + TWITCH_NOTIFICATION_ID + " notification");
+		console.log("Successfully created " + TWITCH_NOTIFICATION_ID + " notification");
 	});
 
 	chrome.notifications.onClicked.addListener(function(id) {
