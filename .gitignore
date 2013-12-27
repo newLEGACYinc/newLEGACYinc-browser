@@ -1,3 +1,4 @@
 /secrets.js
 *.sublime-project
 *.sublime-workspace
+*.db
