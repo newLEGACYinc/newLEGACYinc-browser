@@ -1,6 +1,3 @@
-var YOUTUBE_USERNAME = 'newLEGACYinc';
-var YOUTUBE_NOTIFICATION_ID = 'YouTube';
-var YOUTUBE_URL = 'http://youtube.com/user/newLEGACYinc/videos';
 var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_USERNAME + '/uploads?alt=json';
 
 function youtubeListener(alarm) {

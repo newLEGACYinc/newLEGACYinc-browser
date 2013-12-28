@@ -7,6 +7,11 @@ $(document).ready(function onReady() {
 	$('#twitch').click(function onClick(){
 		chrome.tabs.create({
 			url: TWITCH_URL
-		})
-	})
+		});
+	});
+	$('#twitter').click(function onClick(){
+		chrome.tabs.create({
+			url: TWITTER_URL
+		});
+	});
 });
