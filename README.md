@@ -13,4 +13,5 @@
 
 ###Images
 
+- [Twitch 'Glitch' icon](http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_purple.png)
 - [YouTube icon](http://commons.wikimedia.org/wiki/File:YouTube_Square.png)

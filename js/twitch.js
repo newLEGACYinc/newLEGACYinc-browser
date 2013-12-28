@@ -1,9 +1,4 @@
-var TWITCH_USERNAME = "newLEGACYinc";
-//var TWITCH_USERNAME = "TSM_TheOddOne";
-var TWITCH_NOTIFICATION_ID = 'twitch';
-
 var twitchRequestUrl = "https://api.twitch.tv/kraken/streams/" + TWITCH_USERNAME + "?client_id=" + TWITCH_CLIENT_ID;
-var streamUrl = "http://www.twitch.tv/" + TWITCH_USERNAME;
 
 /*
  * False if user has not been notified that newLEGACYinc is online.
@@ -63,7 +58,7 @@ function serveTwitchNotification(stream) {
 		if (id == TWITCH_NOTIFICATION_ID) {
 			chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {
 				chrome.tabs.create({
-					'url' : streamUrl
+					'url' : TWITCH_URL
 				});
 			});
 		}

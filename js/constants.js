@@ -1,4 +1,5 @@
 var TWITCH_USERNAME = "newLEGACYinc";
+var TWITCH_URL = 'http://www.twitch.tv/' + TWITCH_USERNAME;
 //var TWITCH_USERNAME = "TSM_TheOddOne";
 var TWITCH_NOTIFICATION_ID = 'twitch';
 
