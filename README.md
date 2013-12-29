@@ -13,6 +13,7 @@
 
 ###Images
 
+- ['Online' dot](http://commons.wikimedia.org/wiki/File:Online_dot.png)
 - [Twitch 'Glitch' icon](http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_purple.png)
 - [Twitter logo (blue)](https://g.twimg.com/Twitter_logo_blue.png)
 - [YouTube icon](http://commons.wikimedia.org/wiki/File:YouTube_Square.png)
