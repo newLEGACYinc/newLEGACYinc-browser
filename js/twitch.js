@@ -20,11 +20,11 @@ function twitchListener(alarm) {
 			var json = JSON.parse(xhr.responseText);
 			if (json.stream != null) {
 				// stream is online
+				chrome.browserAction.setIcon({
+					path: 'img/newLEGACYinc_38_online.png'
+				});
 				if (!notified) {
 					serveTwitchNotification(json.stream);
-					chrome.browserAction.setIcon({
-						path: 'img/newLEGACYinc_38_online.png'
-					});
 					notified = true;
 				}
 			} else {
