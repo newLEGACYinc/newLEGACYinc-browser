@@ -22,13 +22,18 @@ function twitchListener(alarm) {
 				// stream is online
 				if (!notified) {
 					serveTwitchNotification(json.stream);
+					chrome.browserAction.setIcon({
+						path: 'img/newLEGACYinc_38_online.png'
+					});
 					notified = true;
 				}
 			} else {
 				// stream is not online
 				notified = false;
-				chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {
+				chrome.browserAction.setIcon({
+					path: 'img/newLEGACYinc_38.png'
 				});
+				chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {});
 			}
 		};
 	};
@@ -43,11 +48,11 @@ function twitchListener(alarm) {
 function serveTwitchNotification(stream) {
 	console.log("Serving twitch notification");
 	var opt = {
-		type : "basic",
-		title : "newLEGACYinc",
-		message : "Live on Twitch.tv!",
-		contextMessage : "Playing: " + stream.game,
-		iconUrl : "img/twitch_notification.png",
+		type: "basic",
+		title: "newLEGACYinc",
+		message: "Live on Twitch.tv!",
+		contextMessage: "Playing: " + stream.game,
+		iconUrl: "img/twitch_notification.png",
 	};
 
 	chrome.notifications.create(TWITCH_NOTIFICATION_ID, opt, function(id) {
@@ -58,7 +63,7 @@ function serveTwitchNotification(stream) {
 		if (id == TWITCH_NOTIFICATION_ID) {
 			chrome.notifications.clear(TWITCH_NOTIFICATION_ID, function() {
 				chrome.tabs.create({
-					'url' : TWITCH_URL
+					'url': TWITCH_URL
 				});
 			});
 		}
