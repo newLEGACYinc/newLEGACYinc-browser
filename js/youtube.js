@@ -3,6 +3,15 @@ var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_US
 function youtubeListener(alarm) {
 	if (alarm.name !== 'youtube')
 		return;
+	chrome.storage.sync.get('youtube_notify', function got(data) {
+		var notify = data.youtube_notify;
+		if (notify) {
+			youTubeCheck(alarm);
+		}
+	})
+}
+
+function youTubeCheck(alarm) {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function onReadyStateChange() {
 		// if YouTube request is ready
