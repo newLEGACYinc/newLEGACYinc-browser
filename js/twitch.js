@@ -50,7 +50,7 @@ function serveTwitchNotification(stream) {
 	var opt = {
 		type: "basic",
 		title: "newLEGACYinc",
-		message: "Live on Twitch.tv!",
+		message: "Live on Twitch!",
 		contextMessage: "Playing: " + stream.game,
 		iconUrl: "img/twitch_notification.png",
 	};

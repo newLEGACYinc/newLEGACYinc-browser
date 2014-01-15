@@ -3,7 +3,6 @@ var youTubeRequestUrl = 'http://gdata.youtube.com/feeds/api/users/' + YOUTUBE_US
 function youtubeListener(alarm) {
 	if (alarm.name !== 'youtube')
 		return;
-	console.log('Running YouTube alarm');
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function onReadyStateChange() {
 		// if YouTube request is ready

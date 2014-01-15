@@ -1,13 +1,20 @@
+// hitbox
+chrome.alarms.create('hitbox', {
+	when: Date.now(),
+	periodInMinutes: 1
+});
+chrome.alarms.onAlarm.addListener(hitboxListener);
+
 // Twitch
 chrome.alarms.create("twitch", {
-	when : Date.now(),
-	periodInMinutes : 1
+	when: Date.now(),
+	periodInMinutes: 1
 });
 chrome.alarms.onAlarm.addListener(twitchListener);
 
 // YouTube
 chrome.alarms.create("youtube", {
-	when : Date.now(),
-	periodInMinutes : 5
+	when: Date.now(),
+	periodInMinutes: 5
 });
 chrome.alarms.onAlarm.addListener(youtubeListener);

@@ -3,7 +3,7 @@
 
 	"name": "newLEGACYinc",
 	"description": "Official Chrome extension of newLEGACYinc!",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"author": "scowalt",
 
 	"icons": {
@@ -26,5 +26,5 @@
 
 	"options_page": "options.html",
 
-	"permissions": ["alarms", "background", "notifications", "storage", "https://api.twitch.tv/", "http://gdata.youtube.com/"]
+	"permissions": ["alarms", "background", "notifications", "storage", "https://api.twitch.tv/", "http://gdata.youtube.com/", "http://api.hitbox.tv/media"]
 }
