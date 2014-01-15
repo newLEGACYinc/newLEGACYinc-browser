@@ -2,6 +2,7 @@
 
 ###Changelog
 
+- **0.2.3** - Fixed hitbox notifications (was pointing to wrong user)
 - **0.2.2** - Fixed options menu so all of the options actually work
 - **0.2.1** - Added [hitbox](http://hitbox.tv) notifications
 - **0.2.0** - Added popup browser action icon to the address bar

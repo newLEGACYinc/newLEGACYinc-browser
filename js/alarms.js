@@ -3,7 +3,7 @@ chrome.alarms.create('hitbox', {
 	when: Date.now(),
 	periodInMinutes: 1
 });
-chrome.alarms.onAlarm.addListener(hitboxListener);
+chrome.alarms.onAlarm.addListener(hitbox.listener);
 
 // Twitch
 chrome.alarms.create("twitch", {
