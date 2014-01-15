@@ -10,7 +10,7 @@ chrome.alarms.create("twitch", {
 	when: Date.now(),
 	periodInMinutes: 1
 });
-chrome.alarms.onAlarm.addListener(twitchListener);
+chrome.alarms.onAlarm.addListener(twitch.listener);
 
 // YouTube
 chrome.alarms.create("youtube", {
