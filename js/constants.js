@@ -1,5 +1,5 @@
 // hitbox
-var HITBOX_USERNAME = 'bobospider';
+var HITBOX_USERNAME = 'newLEGACYinc';
 var HITBOX_NOTIFICATION_ID = 'hitbox';
 var HITBOX_URL = 'http://www.hitbox.tv/' + HITBOX_USERNAME;
 
