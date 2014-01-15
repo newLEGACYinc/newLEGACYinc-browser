@@ -13,6 +13,15 @@ var notified = false;
 function twitchListener(alarm) {
 	if (alarm.name !== "twitch")
 		return;
+	chrome.storage.sync.get('twitch_notify', function got(data) {
+		var notify = data.twitch_notify;
+		if (notify) {
+			twitchCheck(alarm);
+		}
+	});
+};
+
+function twitchCheck(alarm) {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		// if request is ready
@@ -39,7 +48,7 @@ function twitchListener(alarm) {
 	};
 	xhr.open("GET", twitchRequestUrl, true);
 	xhr.send();
-};
+}
 
 /**
  * Displays the stream online Twitch.tv notification

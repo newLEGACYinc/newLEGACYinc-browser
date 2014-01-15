@@ -2,6 +2,8 @@ var hitboxRequestUrl = "http://api.hitbox.tv/media";
 var hitboxNotified = false;
 
 function hitboxListener(alarm) {
+	if (alarm.name !== 'hitbox')
+		return;
 	chrome.storage.sync.get('hitbox_notify', function got(data) {
 		var notify = data.hitbox_notify;
 		if (notify) {
@@ -11,8 +13,6 @@ function hitboxListener(alarm) {
 }
 
 function hitboxCheck(alarm) {
-	if (alarm.name !== 'hitbox')
-		return;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function onReady() {
 		if (xhr.readyState == 4) {
