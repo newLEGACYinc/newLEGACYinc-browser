@@ -2,6 +2,7 @@
 
 ###Changelog
 
+- **0.3.1** - Fixed setup issue
 - **0.3.0** - Fixed bug/feature of repeating hitbox notifications. Also did some internal refactoring.
 - **0.2.3** - Fixed hitbox notifications (was pointing to wrong user)
 - **0.2.2** - Fixed options menu so all of the options actually work
