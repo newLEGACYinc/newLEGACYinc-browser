@@ -2,7 +2,7 @@
 chrome.runtime.onInstalled.addListener(function onInstalled(details) {
 	if (details.reason == 'install')
 		chrome.storage.sync.set({
-			'youtube_last_notified': 0,
+			'youtube_last_notified': moment().unix(),
 			'hitbox_notify': true,
 			'youtube_notify': true,
 			'twitch_notify': true
