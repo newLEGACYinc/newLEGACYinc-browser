@@ -17,4 +17,4 @@ chrome.alarms.create("youtube", {
 	when: Date.now(),
 	periodInMinutes: 5
 });
-chrome.alarms.onAlarm.addListener(youtubeListener);
+chrome.alarms.onAlarm.addListener(youtube.listener);

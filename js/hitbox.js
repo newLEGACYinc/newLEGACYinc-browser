@@ -8,6 +8,9 @@ var hitbox = {
 			if (xhr.readyState == 4) {
 				var json = JSON.parse(xhr.responseText);
 				var liveChannels = json.livestream;
+
+				var live = false;
+
 				for (var i in liveChannels) {
 					var channel = liveChannels[i];
 					var user = channel['media_user_name'];
@@ -19,16 +22,19 @@ var hitbox = {
 						if (!hitbox.notified) {
 							hitbox.serveNotification(channel);
 							hitbox.notified = true;
+							live = true;
 						}
 					}
 				}
 
-				// stream is offline
-				hitbox.notified = false;
-				chrome.browserAction.setIcon({
-					path: 'img/newLEGACYinc_38.png'
-				});
-				chrome.notifications.clear(HITBOX_NOTIFICATION_ID, function() {});
+				if (!live) {
+					// stream is offline
+					hitbox.notified = false;
+					chrome.browserAction.setIcon({
+						path: 'img/newLEGACYinc_38.png'
+					});
+					chrome.notifications.clear(HITBOX_NOTIFICATION_ID, function() {});
+				}
 			}
 		}
 		xhr.open('GET', this.hitbox.requestUrl, true);
