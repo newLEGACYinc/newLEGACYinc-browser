@@ -2,6 +2,7 @@
 
 ###Changelog
 
+- **0.3.3** - Fixed hitbox notifications (again)
 - **0.3.2** - Changed newLEGACYinc hitbox username
 - **0.3.1** - Fixed setup issue
 - **0.3.0** - Fixed bug/feature of repeating hitbox notifications. Also did some internal refactoring.
