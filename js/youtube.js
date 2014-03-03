@@ -21,14 +21,12 @@ var youtube = {
 				var entries = feed.entry;
 				chrome.storage.sync.get('youtube_last_notified', function(data) {
 					var lastNotified = data.youtube_last_notified;
-					console.log("lastNotified = " + lastNotified);
 					var newVideos = [];
 
 					if (lastNotified !== undefined) {
 						for (var i in entries) {
 							var entry = entries[i];
 							var published = moment(entry.published.$t).unix();
-							console.log('published = ' + published);
 							if (lastNotified > published) // old video
 								break;
 							// entry is a new video

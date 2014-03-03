@@ -16,13 +16,13 @@ var hitbox = {
 					var user = channel['media_user_name'];
 					if (user.toUpperCase() === HITBOX_USERNAME.toUpperCase()) {
 						// stream is online
+						live = true;
 						chrome.browserAction.setIcon({
 							path: 'img/newLEGACYinc_38_online.png'
 						});
 						if (!hitbox.notified) {
 							hitbox.serveNotification(channel);
 							hitbox.notified = true;
-							live = true;
 						}
 					}
 				}
