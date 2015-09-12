@@ -14,15 +14,15 @@ var hitbox = {
 				for (var i in liveChannels) {
 					var channel = liveChannels[i];
 					var user = channel['media_user_name'];
-					if (user === HITBOX_USERNAME) {
+					if (user.toUpperCase() === HITBOX_USERNAME.toUpperCase()) {
 						// stream is online
+						live = true;
 						chrome.browserAction.setIcon({
 							path: 'img/newLEGACYinc_38_online.png'
 						});
 						if (!hitbox.notified) {
 							hitbox.serveNotification(channel);
 							hitbox.notified = true;
-							live = true;
 						}
 					}
 				}
@@ -46,7 +46,7 @@ var hitbox = {
 			title: "newLEGACYinc",
 			message: "Live on hitbox.tv!",
 			contextMessage: "Playing: " + channel['category_name'],
-			iconUrl: "img/newLEGACYinc.png",
+			iconUrl: "img/hitbox_notification.png",
 		};
 
 		chrome.notifications.create(HITBOX_NOTIFICATION_ID, opt, function onCreate() {});

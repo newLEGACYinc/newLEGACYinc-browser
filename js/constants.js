@@ -1,7 +1,8 @@
 // hitbox
-var HITBOX_USERNAME = 'newLEGACY';
+var HITBOX_USERNAME = 'newLEGACYinc';
 var HITBOX_NOTIFICATION_ID = 'hitbox';
 var HITBOX_URL = 'http://www.hitbox.tv/' + HITBOX_USERNAME;
+var HITBOX_URL_SEARCH_PATTERN = '*://*.hitbox.tv/newLEGACYinc*';
 
 // Twitch
 var TWITCH_USERNAME = 'newLEGACYinc';
