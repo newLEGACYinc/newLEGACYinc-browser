@@ -26,5 +26,14 @@
 
 	"options_page": "options.html",
 
-	"permissions": ["alarms", "background", "notifications", "storage", "https://api.twitch.tv/", "http://gdata.youtube.com/", "http://api.hitbox.tv/media"]
+	"permissions": [
+		"alarms",
+		"background",
+		"notifications",
+		"storage",
+		"tabs",
+		"https://api.twitch.tv/",
+		"http://gdata.youtube.com/",
+		"http://api.hitbox.tv/media"
+	]
 }
