@@ -1,5 +1,5 @@
 var twitch = {
-	requestUrl: 'https://api.twitch.tv/kraken/streams/' + TWITCH_USERNAME + '?client_id=' + TWITCH_CLIENT_ID,
+	requestUrl: 'https://api.twitch.tv/kraken/streams/' + TWITCH_USER_ID,
 
 	/*
 	 * False if user has not been notified that newLEGACYinc is online.
@@ -50,6 +50,8 @@ var twitch = {
 			};
 		};
 		xhr.open("GET", twitch.requestUrl, true);
+		xhr.setRequestHeader('Client-ID', TWITCH_CLIENT_ID);
+		xhr.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
 		xhr.send();
 	},
 

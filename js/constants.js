@@ -5,8 +5,8 @@ var HITBOX_URL = 'http://www.hitbox.tv/' + HITBOX_USERNAME;
 var HITBOX_URL_SEARCH_PATTERN = '*://*.hitbox.tv/newLEGACYinc*';
 
 // Twitch
-var TWITCH_USERNAME = 'newLEGACYinc';
-var TWITCH_URL = 'http://www.twitch.tv/' + TWITCH_USERNAME;
+var TWITCH_USER_ID = 12606037;
+var TWITCH_URL = 'https://www.twitch.tv/newLEGACYinc';
 var TWITCH_URL_SEARCH_PATTERN = '*://*.twitch.tv/newLEGACYinc*';
 var TWITCH_NOTIFICATION_ID = 'twitch';
 
