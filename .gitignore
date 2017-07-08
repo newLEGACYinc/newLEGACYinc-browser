@@ -3,3 +3,4 @@
 *.sublime-workspace
 *.db
 *.zip
+.vscode
