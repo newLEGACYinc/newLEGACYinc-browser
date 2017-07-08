@@ -1,6 +1,6 @@
-#newLEGACYinc for Chrome
+# newLEGACYinc for Chrome
 
-###Changelog
+### Changelog
 
 - **0.3.7** - Removed Hitbox icon from popup, added Twitch icon
 - **0.3.6** - Updated to Twitch API v5
@@ -16,13 +16,13 @@
 - **0.2.0** - Added popup browser action icon to the address bar
 - **0.1.0** - Initial public release
 
-###Libraries
+### Libraries
 
 - [Bootstrap](http://getbootstrap.com/) - pretty options page
 - [jQuery](http://jquery.com/) - pretty options page
 - [Moment.js](http://momentjs.com/) - for parsing dates from APIs
 
-###Images
+### Images
 
 - ['Online' dot](http://commons.wikimedia.org/wiki/File:Online_dot.png)
 - [Twitch 'Glitch' icon](http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_purple.png)
