@@ -2,6 +2,7 @@
 
 ###Changelog
 
+- **0.3.7** - Removed Hitbox icon from popup, added Twitch icon
 - **0.3.6** - Updated to Twitch API v5
 - **0.3.5** - Fixed tab switching issue
 - **0.3.4** - Switch Twitch to hitbox, new animations in popup

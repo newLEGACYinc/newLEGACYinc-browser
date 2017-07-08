@@ -2,8 +2,8 @@ $(document).ready(function onReady() {
 	$('#youtube').click(function onClick() {
 		createOrActivate(YOUTUBE_URL, YOUTUBE_URL_SEARCH_PATTERN);
 	});
-	$('#hitbox').click(function onClick() {
-		createOrActivate(HITBOX_URL, HITBOX_URL_SEARCH_PATTERN);
+	$('#twitch').click(function onClick() {
+		createOrActivate(TWITCH_URL, TWITCH_URL_SEARCH_PATTERN);
 	});
 	$('#twitter').click(function onClick() {
 		createOrActivate(TWITTER_URL, TWITTER_URL_SEARCH_PATTERN);
@@ -30,7 +30,7 @@ function createOrActivate(url, search) {
 			// create the tab
 			chrome.tabs.create({
 				url: url
-			})
+			});
 		}
-	})
+	});
 }
