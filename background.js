@@ -62,18 +62,12 @@ chrome.runtime.onInstalled.addListener(function onInstalled(details) {
             chrome.storage.sync.get('auth_token', function (data) {
                 if (details.reason !== 'install') {
                     fetch(serverURL + "/unsubscribe-twitch/" + data.auth_token, {
-                        method: "POST",
-                        headers: {
-                            'mode': 'cors'
-                        }
+                        method: "POST"
                     }).then(res => {
                         console.log("Request complete! response:", res.status)
                     });
                     fetch(serverURL + "/unsubscribe-youtube/" + data.auth_token, {
-                        method: "POST",
-                        headers: {
-                            'mode': 'cors'
-                        }
+                        method: "POST"
                     }).then(res => {
                         console.log("Request complete! response:", res.status)
                     });
@@ -96,19 +90,13 @@ chrome.storage.onChanged.addListener(function (changes) {
             console.log(changes.youtube_notify);
             if (changes.youtube_notify.newValue == true && changes.youtube_notify.oldValue == false) {
                 fetch(serverURL + "/subscribe-youtube/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
             } else if (changes.youtube_notify.newValue == false && changes.youtube_notify.oldValue == true) {
                 fetch(serverURL + "/unsubscribe-youtube/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
@@ -123,19 +111,13 @@ chrome.storage.onChanged.addListener(function (changes) {
             console.log(changes.twitch_notify);
             if (changes.twitch_notify.newValue == true && changes.twitch_notify.oldValue == false) {
                 fetch(serverURL + "/subscribe-twitch/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
             } else if (changes.twitch_notify.newValue == false && changes.twitch_notify.oldValue == true) {
                 fetch(serverURL + "/unsubscribe-twitch/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
@@ -150,20 +132,14 @@ chrome.storage.onChanged.addListener(function (changes) {
             console.log(changes.auth_token);
             if (data.twitch_notify == true) {
                 fetch(serverURL + "/subscribe-twitch/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
             }
             if (data.youtube_notify == true) {
                 fetch(serverURL + "/subscribe-youtube/" + data.auth_token, {
-                    method: "POST",
-                    headers: {
-                        'mode': 'cors'
-                    }
+                    method: "POST"
                 }).then(res => {
                     console.log("Request complete! response:", res.status)
                 });
@@ -186,8 +162,7 @@ chrome.alarms.onAlarm.addListener(function listener(alarm) {
             fetch(serverURL + "/status", {
                 method: "GET",
                 headers: {
-                    'Accept': 'application/json',
-                    'mode': 'cors'
+                    'Accept': 'application/json'
                 },
             }).then(res => res.json())
                 .then(data => {
