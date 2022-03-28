@@ -4,3 +4,4 @@
 *.db
 *.zip
 .vscode
+firebaseConfig*.js

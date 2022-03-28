@@ -1,0 +1,202 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-messaging-sw.js';
+import { getToken } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-messaging.js";
+import { firebaseConfig, vapidKey, serverURL } from './firebaseConfig.js';
+
+const firebaseApp = initializeApp(firebaseConfig);
+const messaging = getMessaging(firebaseApp);
+
+onBackgroundMessage(messaging, (payload) => {
+    console.log('[background.js] Received background message ', payload);
+
+    var options = {
+        type: "basic",
+        title: payload.data.title,
+        message: payload.data.body,
+        iconUrl: "img/youtube_notification.png"
+    }
+
+    chrome.notifications.create(payload.data.title.toLowerCase(), options);
+
+    chrome.notifications.onClicked.addListener(function listener(id) {
+        console.log(chrome.notifications.body)
+        if (id == 'youtube') {
+            chrome.notifications.clear('youtube', function () {
+                chrome.tabs.create({
+                    'url': payload.data.url
+                });
+            });
+        } else if (id == 'twitch') {
+            chrome.notifications.clear('twitch', function () {
+                chrome.tabs.create({
+                    'url': 'https://www.twitch.tv/newLEGACYinc'
+                });
+            });
+        }
+    });
+});
+
+chrome.runtime.onInstalled.addListener(function onInstalled(details) {
+    if (details.reason == 'install') {
+        chrome.storage.sync.set({
+            'youtube_notify': false,
+            'twitch_notify': false
+        }, function onSetup() {
+            console.log("Set initial settings");
+        });
+
+        console.log('installed');
+        chrome.windows.create({
+            url: 'options.html',
+            type: 'popup',
+            width: 500,
+            height: 500,
+        });
+    }
+    getToken(messaging, {
+        vapidKey,
+        serviceWorkerRegistration: self.registration,
+    }).then((currentToken) => {
+        if (currentToken) {
+            console.log('Token registered.');
+            chrome.storage.sync.get('auth_token', function (data) {
+                if (details.reason !== 'install') {
+                    fetch(serverURL + "/unsubscribe-twitch/" + data.auth_token, {
+                        method: "POST",
+                        headers: {
+                            'mode': 'cors'
+                        }
+                    }).then(res => {
+                        console.log("Request complete! response:", res.status)
+                    });
+                    fetch(serverURL + "/unsubscribe-youtube/" + data.auth_token, {
+                        method: "POST",
+                        headers: {
+                            'mode': 'cors'
+                        }
+                    }).then(res => {
+                        console.log("Request complete! response:", res.status)
+                    });
+                }
+            })
+            chrome.storage.sync.set({
+                'auth_token': currentToken
+            })
+        } else {
+            console.log('No registration token available. Request permission to generate one.');
+        }
+    }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+    });
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.get('auth_token', function (data) {
+        if ("youtube_notify" in changes) {
+            console.log(changes.youtube_notify);
+            if (changes.youtube_notify.newValue == true && changes.youtube_notify.oldValue == false) {
+                fetch(serverURL + "/subscribe-youtube/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            } else if (changes.youtube_notify.newValue == false && changes.youtube_notify.oldValue == true) {
+                fetch(serverURL + "/unsubscribe-youtube/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            }
+        }
+    })
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.get('auth_token', function (data) {
+        if ("twitch_notify" in changes) {
+            console.log(changes.twitch_notify);
+            if (changes.twitch_notify.newValue == true && changes.twitch_notify.oldValue == false) {
+                fetch(serverURL + "/subscribe-twitch/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            } else if (changes.twitch_notify.newValue == false && changes.twitch_notify.oldValue == true) {
+                fetch(serverURL + "/unsubscribe-twitch/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            }
+        }
+    })
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.get(['auth_token', 'twitch_notify', 'youtube_notify'], function (data) {
+        if ("auth_token" in changes) {
+            console.log(changes.auth_token);
+            if (data.twitch_notify == true) {
+                fetch(serverURL + "/subscribe-twitch/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            }
+            if (data.youtube_notify == true) {
+                fetch(serverURL + "/subscribe-youtube/" + data.auth_token, {
+                    method: "POST",
+                    headers: {
+                        'mode': 'cors'
+                    }
+                }).then(res => {
+                    console.log("Request complete! response:", res.status)
+                });
+            }
+        }
+    })
+})
+
+chrome.alarms.create("twitch", {
+    when: Date.now(),
+    periodInMinutes: 1
+});
+
+chrome.alarms.onAlarm.addListener(function listener(alarm) {
+    if (alarm.name !== "twitch")
+        return;
+    chrome.storage.sync.get('twitch_notify', function got(data) {
+        var notify = data.twitch_notify;
+        if (notify) {
+            fetch(serverURL + "/status", {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'mode': 'cors'
+                },
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.stream_status.trim() !== "Offline") {
+                        chrome.action.setIcon({ path: 'img/newLEGACYinc_38_online.png' });
+                    } else {
+                        chrome.action.setIcon({ path: 'img/newLEGACYinc_38.png' });
+                    }
+                });
+        }
+    });
+});
