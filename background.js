@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
-import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-messaging-sw.js';
-import { getToken } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-messaging.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging-sw.js';
+import { getToken } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js";
 import { firebaseConfig, vapidKey, serverURL } from './firebaseConfig.js';
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -9,12 +9,20 @@ const messaging = getMessaging(firebaseApp);
 onBackgroundMessage(messaging, (payload) => {
     console.log('[background.js] Received background message ', payload);
 
-    var options = {
-        type: "basic",
-        title: payload.data.title,
-        message: payload.data.body,
-        iconUrl: "img/youtube_notification.png"
-    }
+    if (payload.data.title.toLowerCase() == "youtube")
+        var options = {
+            type: "basic",
+            title: payload.data.title,
+            message: payload.data.body,
+            iconUrl: "img/youtube_notification.png"
+        }
+    else if (payload.data.title.toLowerCase() == "twitch")
+        var options = {
+            type: "basic",
+            title: payload.data.title,
+            message: payload.data.body,
+            iconUrl: "img/twitch_notification.png"
+        }
 
     chrome.notifications.create(payload.data.title.toLowerCase(), options);
 
