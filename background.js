@@ -39,7 +39,6 @@ onBackgroundMessage(messaging, (payload) => {
     chrome.notifications.create(payload.data.title.toLowerCase(), options);
 
     chrome.notifications.onClicked.addListener(function listener(id) {
-        console.log(chrome.notifications.body)
         if (id == 'youtube') {
             chrome.notifications.clear('youtube', function () {
                 chrome.tabs.create({
