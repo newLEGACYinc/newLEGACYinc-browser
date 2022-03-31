@@ -169,7 +169,7 @@ chrome.storage.onChanged.addListener(function (changes) {
 
 chrome.alarms.create("twitch", {
     when: Date.now(),
-    periodInMinutes: 1
+    periodInMinutes: 5
 });
 
 chrome.alarms.onAlarm.addListener(function listener(alarm) {
