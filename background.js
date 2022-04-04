@@ -56,22 +56,6 @@ onBackgroundMessage(messaging, (payload) => {
 });
 
 chrome.runtime.onInstalled.addListener(function onInstalled(details) {
-    if (details.reason == 'install') {
-        chrome.storage.sync.set({
-            'youtube_notify': false,
-            'twitch_notify': false
-        }, function onSetup() {
-            console.log("Set initial settings");
-        });
-
-        console.log('installed');
-        chrome.windows.create({
-            url: 'options.html',
-            type: 'popup',
-            width: 500,
-            height: 500,
-        });
-    }
     getToken(messaging, {
         vapidKey,
         serviceWorkerRegistration: self.registration,
@@ -101,6 +85,15 @@ chrome.runtime.onInstalled.addListener(function onInstalled(details) {
     }).catch((err) => {
         console.log('An error occurred while retrieving token. ', err);
     });
+    if (details.reason == 'install') {
+        chrome.storage.sync.set({
+            'youtube_notify': true,
+            'twitch_notify': true
+        }, function onSetup() {
+            console.log("Set initial settings");
+        });
+        console.log('installed');
+    }
 });
 
 chrome.storage.onChanged.addListener(function (changes) {
