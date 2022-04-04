@@ -188,3 +188,17 @@ chrome.alarms.onAlarm.addListener(function listener(alarm) {
         }
     });
 });
+
+chrome.runtime.onStartup.addListener(function onStartup() {
+    chrome.storage.sync.get('auth_token', function (data) {
+        getToken(messaging, {
+            vapidKey,
+            serviceWorkerRegistration: self.registration,
+        }).then((currentToken) => {
+            if (currentToken !== data.auth_token)
+                chrome.storage.sync.set({
+                    'auth_token': currentToken
+                })
+        })
+    })
+})
