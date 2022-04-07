@@ -2,7 +2,7 @@
 
 ### Changelog
 
-- **0.4.0** - Update token fetching/checking
+- **0.4.1** - Update token fetching/checking
 - **0.4.0** - Changing extension to use V3 Manifest, now works with notification server rather than polling external APIs
 - **0.3.7** - Removed Hitbox icon from popup, added Twitch icon
 - **0.3.6** - Updated to Twitch API v5
