@@ -2,3 +2,4 @@
 *.zip
 .vscode
 firebaseConfig*.js
+/node_modules

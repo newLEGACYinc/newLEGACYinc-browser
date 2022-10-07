@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const vapidKey = "BLLgtEIQGYCO-BnoQHonXCJBfxQwtXxLOcE9kDKiqis6eOEF6JzbEd5RCaVjb5fGTL_jmjCJYGoeGnoHkBjUj8Y";
 
-const serverURL = "http://nl-app-server.herokuapp.com"
+const serverURL = "http://notify.newlegacyinc.tv"
 
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
