@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "newLEGACYinc",
   "description": "Official browser extension of newLEGACYinc!",
-  "version": "0.4.2",
+  "version": "0.4.5",
   "author": "newLEGACYinc",
   "icons": {
     "96": "img/newLEGACYinc.png"

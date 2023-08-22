@@ -3,3 +3,5 @@
 .vscode
 firebaseConfig*.js
 /node_modules
+secret.js
+manifest.json

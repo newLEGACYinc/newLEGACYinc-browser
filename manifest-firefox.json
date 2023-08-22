@@ -1,0 +1,34 @@
+{
+	"manifest_version": 3,
+	"name": "newLEGACYinc",
+	"description": "Official browser extension of newLEGACYinc!",
+	"version": "0.4.5",
+	"author": "newLEGACYinc",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "addon@newlegacyinc.tv"
+		}
+	},
+	"icons": {
+		"96": "img/newLEGACYinc.png"
+	},
+	"web_accessible_resources": [
+		{
+			"resources": ["img/youtube_notification.png"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"background": {
+		"scripts": ["background.js"],
+		"type": "module"
+	},
+	"options_ui": { "page": "options.html", "browser_style": false },
+	"permissions": ["alarms", "notifications", "storage", "tabs"],
+	"action": {
+		"default_icon": "img/newLEGACYinc_38.png",
+		"default_title": "newLEGACYinc",
+		"default_popup": "popup.html"
+	},
+	"content_security_policy": {},
+	"host_permissions": ["<all_urls>"]
+}

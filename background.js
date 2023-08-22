@@ -1,19 +1,7 @@
 import { initializeApp } from "./js/firebase-app.js";
 import { getMessaging, onBackgroundMessage } from './js/firebase-messaging-sw.js';
 import { getToken } from "./js/firebase-messaging.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAirkUx2JFn2g0ERFdnc76aHW2idWTbRfM",
-    authDomain: "nl-notification-server.firebaseapp.com",
-    projectId: "nl-notification-server",
-    storageBucket: "nl-notification-server.appspot.com",
-    messagingSenderId: "1061978312341",
-    appId: "1:1061978312341:web:e67c155df9c70b8de1159c"
-};
-
-const vapidKey = "BLLgtEIQGYCO-BnoQHonXCJBfxQwtXxLOcE9kDKiqis6eOEF6JzbEd5RCaVjb5fGTL_jmjCJYGoeGnoHkBjUj8Y";
-
-const serverURL = "http://notify.newlegacyinc.tv"
+import { firebaseConfig, vapidKey, serverURL } from "./secret.js";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
